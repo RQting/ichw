@@ -13,6 +13,7 @@
       就如时钟向前调9小时比向后调3小时早了12小时，但效果一样，可以舍去那12小时。
       例：码长为4，求5-3。5的补码为0101，-3的补码为1101，和为10010，把最高的1舍掉，得到0010，即是2。  
 **3.浮点数**   
-1 | 2
-- | -
-3 | 4
+First Header | Second Header
+------------ | -------------
+Content from cell 1 | Content from cell 2
+Content in the first column | Content in the second column
