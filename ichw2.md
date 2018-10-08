@@ -18,4 +18,4 @@
       
 **3.浮点数**   
 答：  
-![]()
+![](https://github.com/RQting/ichw/blob/master/%E6%8D%95%E8%8E%B7.PNG)
