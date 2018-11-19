@@ -1,10 +1,10 @@
 import turtle
 import math
 z=turtle.Turtle()
-z.color('yellow')
-z.shape('circle')
 z.penup()
+z.hideturtle()
 z.goto(20,0)
+z.dot(30,'yellow')
 
 a=turtle.Turtle()
 a.shape('circle')
