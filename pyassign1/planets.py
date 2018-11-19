@@ -3,7 +3,8 @@ import math
 z=turtle.Turtle()
 z.color('yellow')
 z.shape('circle')
-z.goto(0,10)
+z.penup()
+z.goto(20,0)
 
 a=turtle.Turtle()
 a.shape('circle')
