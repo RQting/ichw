@@ -36,7 +36,7 @@ def get_from(json):
     return getfrom
 
 def test_get_from():
-    assert('USD' == get_from(json))
+    assert('3 United States Dollars' == get_from(exchange('USD', 'EUR', 3)))
     
 def get_to(json):
     a1=json.find('"')
@@ -50,6 +50,9 @@ def get_to(json):
     getto=json[a7+1:a8]
     return getto
     
+    
+def test_get_to():
+    assert('2.590707 Euros'==get_to(exchange('USD', 'EUR', 3)))
 def has_error(json):
     a1=json.rfind('"')
     a2=json[:len(json)-(len(json)-a1)].rfind('"')  #用rfind反向找到倒数第一个'"',a1,a2为倒数第一，倒数第二个'"'的位置
@@ -73,7 +76,8 @@ def test_exchange():
     assert (number == 2.590707)
     
 def test_all():
-  
+    test_get_from()
+    test_get_to()
     test_exchange()
     print('All tests passed')
     
