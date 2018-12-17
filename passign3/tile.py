@@ -19,7 +19,15 @@
                 if i in solution[j]:
                     return False
         return True
-   
+    
+    def brick_useable():   #检测砖块是否可铺满墙
+        if m*n <= a*b:
+            print('The brick is too big')  # 判断墙是否比砖块大
+        if (m*n) % (a*b) != 0:
+            print("The wall can't be paved completely")
+        if m*n>=a*b and (m*n) %(a*b)==0:
+            return True
+        
     def conflict(x,p,solution):
         
         for i in range(p):
@@ -95,9 +103,9 @@
                 apen.goto((m2-m/2)*30,(n/2-n2)*30)
                 apen.pendown()
                 for i in range(2):
-                    apen.fd(b)
-                    apen.rt(90)
                     apen.fd(a)
+                    apen.rt(90)
+                    apen.fd(b)
                     apen.rt(90)
 
             else:
@@ -115,12 +123,13 @@
     a=int(turtle.numinput("please input brick's length",'brick length:',1,minval=0,maxval=100))
     b=int(turtle.numinput("please input brick's width",'brick width:',1,minval=0,maxval=100))
     z=int(turtle.numinput("",'choose the solution you want to draw:',1,minval=0,maxval=1000))
-    apen=turtle.Turtle()
-    draw_wall()
-    draw_diamond()
-    draw_number()
-    tt=[]
-    solution = [0 for i in range(m*n//(a*b))]
-    print(solve(0,0))
-    apen.lt(90)
-    draw_brick()
+    if brick_useable():
+        apen=turtle.Turtle()
+        draw_wall()
+        draw_diamond()
+        draw_number()
+        tt=[]
+        solution = [0 for i in range(m*n//(a*b))]
+        print(solve(0,0))
+        apen.lt(90)
+        draw_brick()
