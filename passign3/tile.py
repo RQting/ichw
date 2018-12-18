@@ -4,7 +4,7 @@
         t.append(x//m)
         return t
 
-    def brick(u,v,x):
+    def brick(u,v,x):     #输出砖块所占方块编号
         brick = []
         for i in range(u):
             for j in range(v):
@@ -37,6 +37,10 @@
 
     def solve(x,p):
         if p == m*n//(a*b):
+            j=0
+            for i in solution:
+                solution[j]=sorted(i)
+                j += 1
             print(solution)
             tt.append(solution[:])
         else:
@@ -93,28 +97,28 @@
                 apen.goto(((-m+1)/2+i3)*30,((n-1)/2-i2)*30)
                 apen.write(wall[i2][i3])
             
-    def draw_brick():
+    def draw_brick():     #绘制砖块
         apen.color('brown')
         for z0 in tt[z-1]: 
             apen.penup()
-            m2=z0[0] % m
+            m2=z0[0] % m      #m2,n2 用于计算坐标
             n2=z0[0] // m
             if z0[a-1]-z0[0]==a-1:
-                apen.goto((m2-m/2)*30,(n/2-n2)*30)
+                apen.goto((m2-m/2)*30,(n/2-n2)*30)   #到达砖块的左上角顶点
                 apen.pendown()
                 for i in range(2):
-                    apen.fd(a)
-                    apen.rt(90)
-                    apen.fd(b)
-                    apen.rt(90)
+                    apen.forward(a*30)
+                    apen.right(90)
+                    apen.forward(b*30)
+                    apen.right(90)
 
             else:
                 apen.goto((m2-m/2)*30,(n/2-n2)*30)
                 apen.pendown()
                 for i in range(2):
-                    apen.fd(b)
+                    apen.fd(b*30)
                     apen.rt(90)
-                    apen.fd(a)
+                    apen.fd(a*30)
                     apen.rt(90)   
     
     import turtle
