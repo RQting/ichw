@@ -4,7 +4,7 @@
         t.append(x//m)
         return t
 
-    def brick(u,v,x):     #输出砖块所占方块编号
+    def brick(u,v,x):
         brick = []
         for i in range(u):
             for j in range(v):
@@ -36,12 +36,14 @@
         return False
 
     def solve(x,p):
+        ans=0
         if p == m*n//(a*b):
             j=0
             for i in solution:
                 solution[j]=sorted(i)
                 j += 1
             print(solution)
+            ans+=1
             tt.append(solution[:])
         else:
         
@@ -97,14 +99,14 @@
                 apen.goto(((-m+1)/2+i3)*30,((n-1)/2-i2)*30)
                 apen.write(wall[i2][i3])
             
-    def draw_brick():     #绘制砖块
+    def draw_brick():
         apen.color('brown')
         for z0 in tt[z-1]: 
             apen.penup()
-            m2=z0[0] % m      #m2,n2 用于计算坐标
+            m2=z0[0] % m
             n2=z0[0] // m
             if z0[a-1]-z0[0]==a-1:
-                apen.goto((m2-m/2)*30,(n/2-n2)*30)   #到达砖块的左上角顶点
+                apen.goto((m2-m/2)*30,(n/2-n2)*30)
                 apen.pendown()
                 for i in range(2):
                     apen.forward(a*30)
@@ -127,6 +129,8 @@
     a=int(turtle.numinput("please input brick's length",'brick length:',1,minval=0,maxval=100))
     b=int(turtle.numinput("please input brick's width",'brick width:',1,minval=0,maxval=100))
     z=int(turtle.numinput("",'choose the solution you want to draw:',1,minval=0,maxval=1000))
+    if a<b:
+        a,b=b,a
     if brick_useable():
         apen=turtle.Turtle()
         draw_wall()
