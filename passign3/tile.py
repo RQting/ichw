@@ -29,31 +29,29 @@ def main():
         if m*n>=a*b and (m*n) %(a*b)==0:
             return True
         
-    def conflict(x,p,solution):
-        
+    def conflict(x,p,solution):           #判断砖块是否已铺
         for i in range(p):
             if x in solution[i]:
                 return True
         return False
 
-    def solve(x,p):
+    def solve(x,p):         #找出铺砖方案
         if a!=b:
             if p == m*n//(a*b):
                 j=0
                 for i in solution:
-                    solution[j]=sorted(i)
+                    solution[j]=sorted(i)     #使方块编号按从小到大的顺序排列
                     j += 1
                 print(solution)
-                tt.append(solution[:])
+                tt.append(solution[:])      #所有方案的汇总
             else:
-        
-                if conflict(x,p,solution):
+                if conflict(x,p,solution):       #如果已铺，就找另一块再铺
                     solve(x+1,p)
                 if not conflict(x,p,solution):
-                    if judgebrick(a,b,x,p):
+                    if judgebrick(a,b,x,p):     #横铺
                         solution[p] = brick(a,b,x)
                         solve(x+1,p+1)
-                    if judgebrick(b,a,x,p):
+                    if judgebrick(b,a,x,p):    #竖铺
                         solution[p] = brick(b,a,x)
                         solve(x+1,p+1)
                 return  'The number of all solutions is'+' '+str(len(tt))
@@ -82,7 +80,7 @@ def main():
         apen.speed(0)
         apen.pensize(8)     #绘制墙的外围
         apen.penup()
-        apen.goto(-(m*30)/2,-(n*30)/2)
+        apen.goto(-(m*30)/2,-(n*30)/2)      # m*30扩大图形面积，使图形更便于观察
         apen.pendown()
         for l in range(2):   
             apen.fd(m*30)
@@ -93,13 +91,13 @@ def main():
     def draw_diamond():        #绘制墙中的方块
         apen.color('blue') 
         apen.pensize(3)
-        for i in range(n-1):
+        for i in range(n-1):      #绘制横线
             apen.penup()
             apen.goto((-m/2)*30,(-n/2+1+i)*30)
             apen.pendown()
             apen.fd(m*30)
         apen.rt(90)
-        for i1 in range(m-1):
+        for i1 in range(m-1):     #绘制竖线
             apen.penup()
             apen.goto((-m/2+1+i1)*30,(n/2)*30)
             apen.pendown()
@@ -116,19 +114,19 @@ def main():
         apen.penup()
         apen.color('purple')
         for i2 in range(n):
-            apen.goto(((-m+1)/2)*30,((n-1)/2-i2)*30)
+            apen.goto(((-m+1)/2)*30,((n-1)/2-i2)*30)     
             for i3 in range(m):
                 apen.goto(((-m+1)/2+i3)*30,((n-1)/2-i2)*30)
                 apen.write(wall[i2][i3])
             
-    def draw_brick():
+    def draw_brick():   #画砖块
         apen.color('brown')
         for z0 in tt[z-1]: 
             apen.penup()
             m2=z0[0] % m
             n2=z0[0] // m
             if z0[a-1]-z0[0]==a-1:
-                apen.goto((m2-m/2)*30,(n/2-n2)*30)
+                apen.goto((m2-m/2)*30,(n/2-n2)*30)     #到达砖块左上角位置
                 apen.pendown()
                 for i in range(2):
                     apen.forward(a*30)
