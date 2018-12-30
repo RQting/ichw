@@ -1,18 +1,19 @@
+def main():   
     def change(x):       #x为方块的编号，x%m为横坐标，x//m为纵坐标
         t = []
         t.append(x%m)
         t.append(x//m)
         return t
 
-    def brick(u,v,x):
+    def brick(u,v,x):     #u,v分别为砖的长宽。
         brick = []
         for i in range(u):
             for j in range(v):
-                brick.append(x + i + m * j)
+                brick.append(x + i + m * j)       #砖块所占方块的编号。
         return brick
     
-    def judgebrick(u,v,x,p):
-        if (change(x)[0]+u-1) >= m or (change(x,)[1]+v-1) >= n:
+    def judgebrick(u,v,x,p):       #判断是否可以继续铺砖 ,p为已铺砖块个数
+        if (change(x)[0]+u-1) >= m or (change(x)[1]+v-1) >= n:
             return False
         for i in brick(u,v,x):
             for j in range(p):
@@ -24,7 +25,7 @@
         if m*n <= a*b:
             print('The brick is too big')  # 判断墙是否比砖块大
         if (m*n) % (a*b) != 0:
-            print("The wall can't be paved completely")
+            print("The wall can't be paved completely")    #判断墙的面积是否是砖的面积的整数倍
         if m*n>=a*b and (m*n) %(a*b)==0:
             return True
         
@@ -36,26 +37,47 @@
         return False
 
     def solve(x,p):
-        ans=0
-        if p == m*n//(a*b):
-            j=0
-            for i in solution:
-                solution[j]=sorted(i)
-                j += 1
-            print(solution)
-            ans+=1
-            tt.append(solution[:])
-        else:
+        if a!=b:
+            if p == m*n//(a*b):
+                j=0
+                for i in solution:
+                    solution[j]=sorted(i)
+                    j += 1
+                print(solution)
+                tt.append(solution[:])
+            else:
         
-            if conflict(x,p,solution):
-                solve(x+1,p)
-            if not conflict(x,p,solution):
-                if judgebrick(a,b,x,p):
-                    solution[p] = brick(a,b,x)
-                    solve(x+1,p+1)
-                if judgebrick(b,a,x,p):
-                    solution[p] = brick(b,a,x)
-                    solve(x+1,p+1)
+                if conflict(x,p,solution):
+                    solve(x+1,p)
+                if not conflict(x,p,solution):
+                    if judgebrick(a,b,x,p):
+                        solution[p] = brick(a,b,x)
+                        solve(x+1,p+1)
+                    if judgebrick(b,a,x,p):
+                        solution[p] = brick(b,a,x)
+                        solve(x+1,p+1)
+                return  'The number of all solutions is'+' '+str(len(tt))
+        if a==b:
+            if p == m*n//(a*b):
+                j=0
+                for i in solution:
+                    solution[j]=sorted(i)
+                    j += 1
+                tt.append(solution[:])
+            else:
+                if conflict(x,p,solution):
+                    solve(x+1,p)
+                if not conflict(x,p,solution):
+                    if judgebrick(a,b,x,p):
+                        solution[p] = brick(a,b,x)
+                        solve(x+1,p+1)
+                    if judgebrick(b,a,x,p):
+                        solution[p] = brick(b,a,x)
+                        solve(x+1,p+1)            
+            return  tt[0],'The number of all solutions is'+' '+'1'
+            
+        
+        
     def draw_wall():
         apen.speed(0)
         apen.pensize(8)     #绘制墙的外围
@@ -124,20 +146,27 @@
                     apen.rt(90)   
     
     import turtle
-    m=int(turtle.numinput("please input the wall's length",'wall length:',1,minval=0,maxval=100))  #输入墙的长宽 m,n 和砖块的长宽a,b
-    n=int(turtle.numinput("please input the wall's width",'wall width:',1,minval=0,maxval=100))
-    a=int(turtle.numinput("please input brick's length",'brick length:',1,minval=0,maxval=100))
-    b=int(turtle.numinput("please input brick's width",'brick width:',1,minval=0,maxval=100))
-    z=int(turtle.numinput("",'choose the solution you want to draw:',1,minval=0,maxval=1000))
+    m=int(input("please input the wall's length:"))  #输入墙的长宽 m,n 和砖块的长宽a,b
+    n=int(input("please input the wall's width:"))
+    a=int(input("please input brick's length:"))
+    b=int(input("please input brick's width:"))
+    z=int(turtle.numinput("",'choose the solution you want to draw:',1,minval=0,maxval=100))
+
     if a<b:
-        a,b=b,a
+        a,b=b,a  #确保a>b,方便画砖
+        
     if brick_useable():
         apen=turtle.Turtle()
-        draw_wall()
+        
+        draw_wall()   #画出背景
         draw_diamond()
         draw_number()
+        
         tt=[]
         solution = [0 for i in range(m*n//(a*b))]
         print(solve(0,0))
-        apen.lt(90)
+        apen.lt(90)   #使箭头朝向正右方
         draw_brick()
+        
+if __name__ == '__main__':
+    main()
