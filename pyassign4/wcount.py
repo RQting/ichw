@@ -1,3 +1,4 @@
+#!usr/bin/python
 """wcount.py: count words from an Internet file.
 
 __author__ = "袁长峰"
